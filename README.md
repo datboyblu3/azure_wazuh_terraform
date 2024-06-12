@@ -1,4 +1,4 @@
-# <p style="text-align: center;">Wazuh Azure Deployment via Terraform </p>
+# Wazuh Azure Terraform Deployment
 
 
 
