@@ -9,10 +9,11 @@ Using Terraform to automate the deployment of the Wazuh architecture: Indexer, S
 ```
 ├── 0-providers.tf <- Azure config
 ├── 1-key_resources.tf <- Creates .pem and .pem.pub generation
-├── 2-security_group.tf <- security groups creation
-├── 3-ec2_instances.tf <- instances specification
-├── 4-provision.tf <- instance configuration at SO level
-├── 5-outputs.tf <- Ouput variable
+├── 2-network.tf <- creates virtual network and subnet
+├── 3-security_group.tf <- security groups creation
+├── 4-compute.tf <- virtual machines
+├── 5-provision.tf <- executes ansible wazuh files
+├── 6-outputs.tf <- Ouput options
 ```
 
 ```
