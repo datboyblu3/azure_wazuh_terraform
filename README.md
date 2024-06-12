@@ -21,7 +21,6 @@ Using Terraform to automate the deployment of the Wazuh architecture: Indexer, S
 ├── configure-server.yml <- server installation process
 ├── configure-dashboard.yml <- dashboard installation commands
 ```
-## Detailed Explanation
 
 ## How to Use This
 
