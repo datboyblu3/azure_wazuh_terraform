@@ -42,3 +42,7 @@ terraform state list
 ```python
 terraform state show NAME_OF_RESOURCE_GROUP
 ```
+
+```python
+terraform destroy -auto-approve
+```
