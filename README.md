@@ -34,3 +34,11 @@ terraform plan
 ```python
 terraform apply -auto-approve
 ```
+
+```python
+terraform state list
+```
+
+```python
+terraform state show NAME_OF_RESOURCE_GROUP
+```
