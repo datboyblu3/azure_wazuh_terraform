@@ -34,7 +34,7 @@ resource "azurerm_linux_virtual_machine" "az-indexer" {
   }
 
   provisioner "file" {
-    source = "
+    source = ""
     destination = ""
 
     connection {
