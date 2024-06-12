@@ -23,6 +23,11 @@ Using Terraform to automate the deployment of the Wazuh architecture: Indexer, S
 ## Detailed Explanation
 
 ## How to Use This
+
+This directory is a self contained production ready environment. You can clone
+this repository and run terraform from within this directory or copy the files
+elsewhere.
+
 ```python
 terraform init
 ```
