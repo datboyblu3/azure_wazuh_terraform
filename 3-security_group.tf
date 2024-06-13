@@ -5,8 +5,8 @@
 ######################################################################################
 
 resource "azurerm_network_security_group" "az-wazuh-sg" {
-  name     = "az-wazuh-sg"
-  location = azurerm_resource_group.az-wazuh-grp.location
+  name                = "az-wazuh-sg"
+  location            = azurerm_resource_group.az-wazuh-grp.location
   resource_group_name = azurerm_resource_group.az-wazuh-grp.name
 
   tags = {

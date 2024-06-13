@@ -8,5 +8,13 @@ terraform {
 }
 
 provider "azurerm" {
-	features {}
+  features {}
+}
+
+resource "azurerm_resource_group" "az-wazuh-grp" {
+  name     = "az-wazuh-resources"
+  location = "East US"
+  tags = {
+    environment = "dev" #indiciates what environment your resources are deployed to
+  }
 }
