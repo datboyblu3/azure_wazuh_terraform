@@ -28,6 +28,23 @@ This directory is a self contained production ready environment. You can clone
 this repository and run terraform from within this directory or copy the files
 elsewhere.
 
+### Install Azure CLI
+
+**macOS**
+```python
+brew update && brew install azure-cli
+```
+
+**Linux (Ubuntu, Debian)**
+```python
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+```
+**Windows**
+
+[az Windows Install](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli)
+
+### Common Terraform Commands
+
 ```python
 terraform init
 ```
