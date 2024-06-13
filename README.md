@@ -28,6 +28,36 @@ This directory is a self contained production ready environment. You can clone
 this repository and run terraform from within this directory or copy the files
 elsewhere.
 
+### IMPORTANT:Azure KeyVault
+
+I used the Azure KeyVault to store the SSH keys for the Wazuh Indexer, Server and Dashboard. This way, no keys would be committed to GitHub.
+This step requires a *pre-requisite: You must generate the SSH keys yourself.* 
+> NOTE: Azure only accepts RSA type for SSH
+
+**Step 1: Generate SSH Keys**
+```python
+ ssh-keygen -t rsa -b 4096 -C "wazuh_indexer"
+```
+
+**Step 2: Configure Azure KeyVault**
+
+This step covers the details to configure your Azure KeyVault
+
+- Create a resource group
+  ```python
+  az group create --name "myResourceGroup" --location "EastUS"
+  ```
+- Create a key vault
+  ```python
+  az keyvault create --name "<your-unique-keyvault-name>" --resource-group "myResourceGroup" --enable-rbac-authorization
+  ```
+- Give your user account permissions to manage secrets in Key Vault
+  ```python
+  az role assignment create --role "Key Vault Secrets User" --assignee "<your-email-address>" --scope "/subscriptions/<subscription-id>/resourceGroups/<resource-group-name>/providers/Microsoft.KeyVault/vaults/<your-unique-keyvault-name>"
+  ```
+- Add a secret to Key Vault
+  az keyvault secret set --vault-name "<your-unique-keyvault-name>" --name "ExamplePassword" --value "hVFkk965BuUv"
+  ```
 ### Install Azure CLI
 
 **macOS**
