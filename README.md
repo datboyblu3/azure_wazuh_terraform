@@ -56,8 +56,10 @@ This step covers the details to configure your Azure KeyVault
   az role assignment create --role "Key Vault Secrets User" --assignee "<your-email-address>" --scope "/subscriptions/<subscription-id>/resourceGroups/<resource-group-name>/providers/Microsoft.KeyVault/vaults/<your-unique-keyvault-name>"
   ```
 - Add a secret to Key Vault
+  ```python
   az keyvault secret set --vault-name "<your-unique-keyvault-name>" --name "ExamplePassword" --value "hVFkk965BuUv"
   ```
+
 ### Install Azure CLI
 
 **macOS**
