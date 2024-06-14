@@ -30,7 +30,7 @@ elsewhere.
 
 ### IMPORTANT:Azure KeyVault
 
-I used the Azure KeyVault to store the SSH keys for the Wazuh Indexer, Server and Dashboard. This way, no keys would be committed to GitHub.
+This project will use the Azure KeyVault to store the SSH keys for the Wazuh Indexer, Server and Dashboard. This way, no keys would be committed to GitHub.
 This step requires a *pre-requisite: You must generate the SSH keys yourself.* 
 > NOTE: Azure only accepts RSA type for SSH
 
