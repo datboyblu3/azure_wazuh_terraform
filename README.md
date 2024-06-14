@@ -28,6 +28,21 @@ This directory is a self contained production ready environment. You can clone
 this repository and run terraform from within this directory or copy the files
 elsewhere.
 
+### Install Azure CLI
+
+**macOS**
+```python
+brew update && brew install azure-cli
+```
+
+**Linux (Ubuntu, Debian)**
+```python
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+```
+**Windows**
+
+[az Windows Install](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli)
+
 ### IMPORTANT:Azure KeyVault
 
 This project will use the Azure KeyVault to store the SSH keys for the Wazuh Indexer, Server and Dashboard. This way, no keys would be committed to GitHub.
@@ -60,20 +75,7 @@ This step covers the details to configure your Azure KeyVault
   az keyvault secret set --vault-name "<your-unique-keyvault-name>" --name "ExamplePassword" --value "hVFkk965BuUv"
   ```
 
-### Install Azure CLI
 
-**macOS**
-```python
-brew update && brew install azure-cli
-```
-
-**Linux (Ubuntu, Debian)**
-```python
-curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-```
-**Windows**
-
-[az Windows Install](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli)
 
 ### Common Terraform Commands
 
