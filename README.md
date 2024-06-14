@@ -5,7 +5,7 @@
 
 Using Terraform to automate the deployment of the Wazuh architecture: Indexer, Server and Dashboard in Azure
 
-## Short Descriptions of Each TF Module
+## Terraform Modules
 ```
 ├── 0-providers.tf <- Azure config
 ├── 1-key_resources.tf <- Creates .pem and .pem.pub generation
@@ -22,7 +22,7 @@ Using Terraform to automate the deployment of the Wazuh architecture: Indexer, S
 ├── configure-dashboard.yml <- dashboard installation commands
 ```
 
-## How to Use This
+## Usage
 
 This directory is a self contained production ready environment. You can clone
 this repository and run terraform from within this directory or copy the files
