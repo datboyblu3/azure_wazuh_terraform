@@ -40,6 +40,7 @@ resource "azurerm_linux_virtual_machine" "az-indexer_1" {
     environment = "dev"
   }
 
+
   provisioner "file" {
     source = "ANSIBLE INDEXER INSTALL SCRIPT"
     destination = "DESTINATION LOCATION FOR INDEXER INSTALL SCRIPT"
@@ -129,7 +130,6 @@ resource "azurerm_linux_virtual_machine" "az-indexer_1" {
         type        = "ssh"
         user        = "adminuser"
         private_key = tls_private_key.indexer_key.private_key_pem
-
 
     }
   }
