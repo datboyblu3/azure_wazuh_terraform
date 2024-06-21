@@ -103,3 +103,11 @@ terraform state show NAME_OF_RESOURCE_GROUP
 ```python
 terraform destroy -auto-approve
 ```
+
+## Troubleshooting
+
+If you receive an "GH001: Large files detected" message execute the following command replacing 'EXAMPLE_FILE' with the offending file
+```python
+git filter-branch -f --index-filter 'git rm --cached --ignore-unmatch
+```
+
