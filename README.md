@@ -57,7 +57,11 @@ This step requires a *pre-requisite: You must generate the SSH keys yourself.*
 
 **Step 2: Configure Azure KeyVault**
 
-This step covers the details to configure your Azure KeyVault
+This step covers the details to configure your Azure Key Vault
+> *After generating your SSH keys, store the public key in a variable. Use this variable when adding the public key to the vault. DESTROY THE VARIABLE AFTER YOU HAVE STORED IT IN THE VAULT*
+```
+SSH_PUBLIC_KEY="$(cat example_key.pub)"
+```
 
 - Create a resource group
   ```python
@@ -69,13 +73,13 @@ This step covers the details to configure your Azure KeyVault
   ```
 - Give your user account permissions to manage secrets in Key Vault
   ```python
-  az role assignment create --role "Key Vault Secrets User" --assignee "<your-email-address>" --scope "/subscriptions/<subscription-id>/resourceGroups/<resource-group-name>/providers/Microsoft.KeyVault/vaults/<your-unique-keyvault-name>"
-  ```
-- Add a secret to Key Vault
-  ```python
-  az keyvault secret set --vault-name "<your-unique-keyvault-name>" --name "ExamplePassword" --value "hVFkk965BuUv"
+  az role assignment create --role "Key Vault Secrets User" --assignee "<example_outlook.com#EXT#example@outlook.onmicrosoft.com>" --scope "/subscriptions/<subscription-id>/resourceGroups/<resource-group-name>/providers/Microsoft.KeyVault/vaults/<your-unique-keyvault-name>"
   ```
 
+- Add a secret to Key Vault
+  ```python
+  az keyvault secret set --vault-name "<your-unique-keyvault-name>" --name "ExamplePassword" --value "$SSH_PUBLIC_KEY" --output none
+  ```
 
 
 ### Common Terraform Commands
