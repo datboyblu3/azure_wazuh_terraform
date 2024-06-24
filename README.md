@@ -47,10 +47,15 @@ curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 ### IMPORTANT:Azure KeyVault
 
 This project will use the Azure KeyVault to store the SSH keys for the Wazuh Indexer, Server and Dashboard. This way, the potential for keys to be committed to GitHub is lowered.
-This step requires a *pre-requisite: You must generate the SSH keys yourself.* 
+This step has two pre-requisites: 
+1) You must generate the SSH keys yourself.
+2) Add your user as a `Key Vault Administrator` via your key vault's IAM policy.
+   
 > NOTE: Azure only accepts RSA type for SSH
 
-**Step 1: Generate SSH Keys**
+### Generate SSH Keys
+
+**Step 1: Generate RSA SSH Keys**
 ```python
  ssh-keygen -t rsa -b 4096 -C "windexer"
 ```
@@ -88,6 +93,18 @@ SSH_PUBLIC_KEY="$(cat example_key.pub)"
   ```python
   az keyvault secret set --vault-name "<your-unique-keyvault-name>" --name "ExamplePassword" --value "$SSH_PUBLIC_KEY" --output none
   ```
+### Assign Key Vault Administrator role to User
+
+1) ![keyvault_1](https://github.com/datboyblu3/azure_wazuh_terraform/assets/95729902/e8f715c7-9697-49e3-bfec-d162fea5b5ab)
+
+2) ![keyvault_2](https://github.com/datboyblu3/azure_wazuh_terraform/assets/95729902/19f9471b-d3ff-4abf-a826-b72f45a18db8)
+
+3) ![keyvault_3](https://github.com/datboyblu3/azure_wazuh_terraform/assets/95729902/ca82a235-4a5e-4123-8a08-3809478efd6f)
+
+4) ![keyvault_4](https://github.com/datboyblu3/azure_wazuh_terraform/assets/95729902/c1a1b0de-37d8-4ac9-9709-95360c90202a)
+
+
+
 
 
 ### Common Terraform Commands
