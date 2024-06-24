@@ -52,7 +52,15 @@ This step requires a *pre-requisite: You must generate the SSH keys yourself.*
 
 **Step 1: Generate SSH Keys**
 ```python
- ssh-keygen -t rsa -b 4096 -C "wazuh_indexer"
+ ssh-keygen -t rsa -b 4096 -C "windexer"
+```
+
+```python
+ ssh-keygen -t rsa -b 4096 -C "server"
+```
+
+```python
+ ssh-keygen -t rsa -b 4096 -C "dashboard"
 ```
 
 **Step 2: Configure Azure KeyVault**
