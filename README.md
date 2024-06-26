@@ -1,7 +1,6 @@
 # Wazuh Azure Terraform Deployment
 
-![awt](https://github.com/datboyblu3/azure_wazuh_terraform/assets/95729902/6e5523c4-9b6c-4aee-80fd-ea68e7d2f922)
-
+![azure](https://github.com/datboyblu3/azure_wazuh_terraform/assets/95729902/141cb7de-6667-4637-99e4-edcca6d29e68)
 
 
 Using Terraform to automate the deployment of the Wazuh architecture: Indexer, Server and Dashboard in Azure
