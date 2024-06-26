@@ -3,7 +3,7 @@
 ![Untitled-2024-06-26-1305](https://github.com/datboyblu3/azure_wazuh_terraform/assets/95729902/e10d0d65-a915-4e90-9c3a-26643fab1f4f)
 
 
-Using Terraform to automate the deployment of the Wazuh architecture: Indexer, Server and Dashboard in Azure
+Using Terraform to automate the deployment of the Wazuh architecture: Indexer, Server and Dashboard in Azure.
 
 ## Terraform Modules
 ```
@@ -104,7 +104,9 @@ SSH_PUBLIC_KEY="$(cat example_key.pub)"
 4) ![keyvault_4](https://github.com/datboyblu3/azure_wazuh_terraform/assets/95729902/c1a1b0de-37d8-4ac9-9709-95360c90202a)
 
 
+### Storing the Terraform State File in Terraform Cloud
 
+- Find original artical [here](https://developer.hashicorp.com/terraform/tutorials/cloud/cloud-migrate)
 
 
 ### Common Terraform Commands
