@@ -41,8 +41,9 @@ brew update && brew install azure-cli
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 ```
 **Windows**
-
-[az Windows Install](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli)
+``` python
+https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli)
+```
 
 ### IMPORTANT:Azure KeyVault
 
