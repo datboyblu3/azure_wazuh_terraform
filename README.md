@@ -44,7 +44,7 @@ curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli)
 ```
 
-### IMPORTANT:Azure KeyVault
+### IMPORTANT: Azure KeyVault
 
 This project will use the Azure KeyVault to store the SSH keys for the Wazuh Indexer, Server and Dashboard. This way, the potential for keys to be committed to GitHub is lowered.
 This step has two pre-requisites: 
