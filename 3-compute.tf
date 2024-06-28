@@ -24,18 +24,18 @@ resource "azurerm_linux_virtual_machine" "az-indexer_1" {
     azurerm_network_interface.az-wazuh-nic.id
   ]
 
- 
   # Get a list of secrets in the key vault
   data "azurerm_key_vault_secret" "ssh_key" {
   for_each     = toset(data.azurerm_key_vault_secrets.ssh_key.names)
   name         = each.key
   key_vault_id = data.azurerm_key_vault.existing.id
 
+}
+
   admin_ssh_key {
     username   = "adminuser" #CHANGEME
-    public_key = file("~/.ssh/id_rsa.pub") #PULL FROM AZURE KEY VAULT
+    public_key = data.azurerm_key_vault_secrets.public_key_openssh #PULL FROM AZURE KEY VAULT
   }
-}
 
   os_disk {
     caching              = "ReadWrite"
