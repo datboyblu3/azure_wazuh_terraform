@@ -38,7 +38,7 @@ resource "azurerm_linux_virtual_machine" "az-indexer_1" {
   }
 
   admin_ssh_key {
-    username   = "adminuser"                                          #CHANGEME
+    username   = "datboyblu3"                                          #CHANGEME
     public_key = data.azurerm_key_vault_secrets[1].public_key_openssh #PULL INDEX KEY FROM AZURE KEY VAULT
   }
 
@@ -189,7 +189,7 @@ resource "azurerm_linux_virtual_machine" "az-server_1" {
   }
 
   admin_ssh_key {
-    username   = "SERVER"                                             #CHANGEME
+    username   = "SERVER"
     public_key = data.azurerm_key_vault_secrets[2].public_key_openssh #PULL INDEX KEY FROM AZURE KEY VAULT
   }
 
@@ -248,7 +248,7 @@ resource "azurerm_linux_virtual_machine" "az-dashboard_1" {
   }
 
   admin_ssh_key {
-    username   = "dash"                                               #CHANGEME
+    username   = "dash"
     public_key = data.azurerm_key_vault_secrets[0].public_key_openssh #PULL INDEX KEY FROM AZURE KEY VAULT
   }
 
