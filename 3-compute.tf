@@ -11,7 +11,10 @@ data "azurerm_key_vault" "kv" {
 }
 
 # Get Existing Key
-data "azurerm_key_vault_secrets" "secrets" {
+data "azurerm_key_vault_secrets" "ssh_keys" {
+
+  count = length(var.ssh_key_names)
+  name         = var.ssh_key_names[count.index]
   key_vault_id = data.azurerm_key_vault.kv.id
 }
 
