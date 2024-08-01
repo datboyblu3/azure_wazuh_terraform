@@ -18,6 +18,11 @@ data "azurerm_key_vault_secrets" "ssh_keys" {
   key_vault_id = data.azurerm_key_vault.kv.id
 }
 
+# Output the SSH keys
+output "ssh_keys" {
+  value = [for s in data.azurerm_key_vault_secret.ssh_keys : s.value]
+}
+
 
 ####################################################################
 # Wazuh Indexer Compute Instance
