@@ -11,8 +11,16 @@ data "azurerm_key_vault" "kv" {
 }
 
 # Get Existing Key
-data "azurerm_key_vault_secrets" "secrets" {
+data "azurerm_key_vault_secrets" "ssh_keys" {
+
+  count = length(var.ssh_key_names)
+  name         = var.ssh_key_names[count.index]
   key_vault_id = data.azurerm_key_vault.kv.id
+}
+
+# Output the SSH keys
+output "ssh_keys" {
+  value = [for s in data.azurerm_key_vault_secret.ssh_keys : s.value]
 }
 
 
@@ -38,7 +46,7 @@ resource "azurerm_linux_virtual_machine" "az-indexer_1" {
   }
 
   admin_ssh_key {
-    username   = "adminuser"                                          #CHANGEME
+    username   = "datboyblu3"                                          #CHANGEME
     public_key = data.azurerm_key_vault_secrets[1].public_key_openssh #PULL INDEX KEY FROM AZURE KEY VAULT
   }
 
@@ -57,113 +65,6 @@ resource "azurerm_linux_virtual_machine" "az-indexer_1" {
   tags = {
     environment = "dev"
   }
-
-
-  /*provisioner "file" {
-    source = "ANSIBLE INDEXER INSTALL SCRIPT"
-    destination = "DESTINATION LOCATION FOR INDEXER INSTALL SCRIPT"
-
-    connection {
-        host        = coalesce()
-        agent       = true 
-        type        = "ssh"
-        user        = "adminuser"
-        private_key = tls_private_key.indexer_key.private_key_pem
-
-
-    }
-  }
-
-  #indexer.pem
-   provisioner "file" {
-    source = "AZURE INDEXER PEM FILE"
-    destination = "DESTINATION LOCATION FOR AZURE INDEXER PEM FILE"
-
-    connection {
-        host        = coalesce()
-        agent       = true 
-        type        = "ssh"
-        user        = "adminuser"
-        private_key = tls_private_key.indexer_key.private_key_pem
-
-
-    }
-  }
-
-#indexer.pem.pub
-   provisioner "file" {
-    source = "AZURE INDEXER PUB FILE"
-    destination = "DESTINATION LOCATION FOR AZURE INDEXER PUB FILE"
-
-    connection {
-        host        = coalesce()
-        agent       = true 
-        type        = "ssh"
-        user        = "adminuser"
-        private_key = tls_private_key.indexer_key.private_key_pem
-    }
-  }
-
-
-  #dashboard.pem
-   provisioner "file" {
-    source = "AZURE INDEXER PEM FILE"
-    destination = "DESTINATION LOCATION FOR AZURE INDEXER PEM FILE"
-
-    connection {
-        host        = coalesce()
-        agent       = true 
-        type        = "ssh"
-        user        = "adminuser"
-        private_key = tls_private_key.indexer_key.private_key_pem
-
-
-    }
-  }
-
-    #dashboard.pem.pub
-   provisioner "file" {
-    source = "AZURE DASHBOARD PUB FILE"
-    destination = "DESTINATION LOCATION FOR AZURE DASHBOARD PUB FILE"
-
-    connection {
-        host        = coalesce()
-        agent       = true 
-        type        = "ssh"
-        user        = "adminuser"
-        private_key = tls_private_key.indexer_key.private_key_pem
-    }
-  }
-
-
-  #server.pem
-   provisioner "file" {
-    source = "AZURE SERVER PEM FILE"
-    destination = "DESTINATION LOCATION FOR AZURE SERVER PEM FILE"
-
-    connection {
-        host        = coalesce()
-        agent       = true 
-        type        = "ssh"
-        user        = "adminuser"
-        private_key = tls_private_key.indexer_key.private_key_pem
-
-    }
-  }
-
-    #server.pem.pub
-   provisioner "file" {
-    source = "AZURE SERVER PUB FILE"
-    destination = "DESTINATION LOCATION FOR AZURE SERVER PUB FILE"
-
-    connection {
-        host        = coalesce()
-        agent       = true 
-        type        = "ssh"
-        user        = "adminuser"
-        private_key = tls_private_key.indexer_key.private_key_pem
-    }
-  }*/
 }
 
 
@@ -189,7 +90,7 @@ resource "azurerm_linux_virtual_machine" "az-server_1" {
   }
 
   admin_ssh_key {
-    username   = "SERVER"                                             #CHANGEME
+    username   = "SERVER"
     public_key = data.azurerm_key_vault_secrets[2].public_key_openssh #PULL INDEX KEY FROM AZURE KEY VAULT
   }
 
@@ -248,7 +149,7 @@ resource "azurerm_linux_virtual_machine" "az-dashboard_1" {
   }
 
   admin_ssh_key {
-    username   = "dash"                                               #CHANGEME
+    username   = "dash"
     public_key = data.azurerm_key_vault_secrets[0].public_key_openssh #PULL INDEX KEY FROM AZURE KEY VAULT
   }
 
