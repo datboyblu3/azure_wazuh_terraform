@@ -11,7 +11,7 @@ provider "azurerm" {
   features {}
 }
 
-resource "azurerm_resource_group" "az-wazuh-grp" {
+resource "azurerm_resource_group" "az-wazuh-resources" {
   name     = "az-wazuh-resources"
   location = "East US"
   tags = {

@@ -4,50 +4,34 @@
 ######################################################################################
 ######################################################################################
 
-# Access Azure Key Vault
+# Access Azure Key Vault,
 data "azurerm_key_vault" "kv" {
-  name                = "kv-dev-mgmt"
-  resource_group_name = azurerm_resource_group.az-wazuh-grp.name
+  name                = "purple-team-keyvault"
+  resource_group_name = azurerm_resource_group.az-wazuh-resources.name
 }
 
-# Get Existing Key
-data "azurerm_key_vault_secrets" "ssh_keys" {
-
-  count = length(var.ssh_key_names)
-  name         = var.ssh_key_names[count.index]
+# Get Existing Secret
+data "azurerm_key_vault_secret" "ssh_keys" {
+  name         = "az-ssh-key"
   key_vault_id = data.azurerm_key_vault.kv.id
 }
-
-# Output the SSH keys
-output "ssh_keys" {
-  value = [for s in data.azurerm_key_vault_secret.ssh_keys : s.value]
-}
-
 
 ####################################################################
 # Wazuh Indexer Compute Instance
 ####################################################################
 resource "azurerm_linux_virtual_machine" "az-indexer_1" {
   name                = "wazuh-indexer"
-  resource_group_name = azurerm_resource_group.az-wazuh-grp.name
-  location            = azurerm_resource_group.az-wazuh-grp.location
+  resource_group_name = azurerm_resource_group.az-wazuh-resources.name
+  location            = azurerm_resource_group.az-wazuh-resources.location
   size                = "Standard_B1s"
   admin_username      = "indexer"
   network_interface_ids = [
     azurerm_network_interface.az-wazuh-nic.id
   ]
 
-  # Get a list of secrets in the key vault
-  data "azurerm_key_vault_secret" "ssh_key" {
-    for_each     = toset(data.azurerm_key_vault_secrets.ssh_key.names)
-    name         = each.key
-    key_vault_id = data.azurerm_key_vault.existing.id
-
-  }
-
   admin_ssh_key {
-    username   = "datboyblu3"                                          #CHANGEME
-    public_key = data.azurerm_key_vault_secrets[1].public_key_openssh #PULL INDEX KEY FROM AZURE KEY VAULT
+    username   = "datboyblu3"                                          
+    public_key = data.azurerm_key_vault_secret.ssh_keys.value
   }
 
   os_disk {
@@ -65,33 +49,41 @@ resource "azurerm_linux_virtual_machine" "az-indexer_1" {
   tags = {
     environment = "dev"
   }
-}
 
+  disable_password_authentication = false
+
+  /*provisioner "file" {
+    source = "ANSIBLE SERVER INSTALL SCRIPT"
+    destination = "DESTINATION LOCATION FOR SERVER INSTALL SCRIPT"
+
+    connection {
+        host        = coalesce()
+        agent       = true 
+        type        = "ssh"
+        user        = "adminuser"
+        private_key = tls_private_key.indexer_key.private_key_pem
+
+
+    }
+  }*/
+}
 
 ####################################################################
 # Wazuh Server Compute Instance
 ####################################################################
 resource "azurerm_linux_virtual_machine" "az-server_1" {
   name                = "wazuh-server"
-  resource_group_name = azurerm_resource_group.az-wazuh-grp.name
-  location            = azurerm_resource_group.az-wazuh-grp.location
+  resource_group_name = azurerm_resource_group.az-wazuh-resources.name
+  location            = azurerm_resource_group.az-wazuh-resources.location
   size                = "Standard_B1s"
-  admin_username      = "adminuser" #CHANGEME
+  admin_username      = "server" #CHANGEME
   network_interface_ids = [
     azurerm_network_interface.az-wazuh-nic.id
   ]
 
-  # Get a list of secrets in the key vault
-  data "azurerm_key_vault_secret" "ssh_key" {
-    for_each     = toset(data.azurerm_key_vault_secrets.ssh_key.names)
-    name         = each.key
-    key_vault_id = data.azurerm_key_vault.existing.id
-
-  }
-
   admin_ssh_key {
-    username   = "SERVER"
-    public_key = data.azurerm_key_vault_secrets[2].public_key_openssh #PULL INDEX KEY FROM AZURE KEY VAULT
+    username   = "datboyblu3"
+    public_key = data.azurerm_key_vault_secret.ssh_keys.value
   }
 
   os_disk {
@@ -109,6 +101,8 @@ resource "azurerm_linux_virtual_machine" "az-server_1" {
   tags = {
     environment = "dev"
   }
+
+  disable_password_authentication = false
 
   /*provisioner "file" {
     source = "ANSIBLE SERVER INSTALL SCRIPT"
@@ -132,25 +126,17 @@ resource "azurerm_linux_virtual_machine" "az-server_1" {
 ####################################################################
 resource "azurerm_linux_virtual_machine" "az-dashboard_1" {
   name                = "wazuh-dashboard"
-  resource_group_name = azurerm_resource_group.az-wazuh-grp.name
-  location            = azurerm_resource_group.az-wazuh-grp.location
+  resource_group_name = azurerm_resource_group.az-wazuh-resources.name
+  location            = azurerm_resource_group.az-wazuh-resources.location
   size                = "Standard_B1s"
-  admin_username      = "dash" #CHANGEME
+  admin_username      = "dash"
   network_interface_ids = [
     azurerm_network_interface.az-wazuh-nic.id
   ]
 
-  # Get a list of secrets in the key vault
-  data "azurerm_key_vault_secret" "ssh_key" {
-    for_each     = toset(data.azurerm_key_vault_secrets.ssh_key.names)
-    name         = each.key
-    key_vault_id = data.azurerm_key_vault.existing.id
-
-  }
-
   admin_ssh_key {
-    username   = "dash"
-    public_key = data.azurerm_key_vault_secrets[0].public_key_openssh #PULL INDEX KEY FROM AZURE KEY VAULT
+    username   = "datboyblu3"
+    public_key = data.azurerm_key_vault_secret.ssh_keys.value
   }
 
   os_disk {
@@ -168,6 +154,8 @@ resource "azurerm_linux_virtual_machine" "az-dashboard_1" {
   tags = {
     environment = "dev"
   }
+
+  disable_password_authentication = false
 
   /*provisioner "file" {
     source = "ANSIBLE DASHBOARD INSTALL SCRIPT"
