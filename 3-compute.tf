@@ -4,13 +4,13 @@
 ######################################################################################
 ######################################################################################
 
-# Access Azure Key Vault
+# Access Azure Key Vault,
 data "azurerm_key_vault" "kv" {
-  name                = "kv-dev-mgmt"
-  resource_group_name = azurerm_resource_group.az-wazuh-grp.name
+  name                = "purple-team-keyvault"
+  resource_group_name = azurerm_resource_group.az-wazuh-resources.name
 }
 
-# Get Existing Key
+# Get Existing Secret
 data "azurerm_key_vault_secret" "ssh_keys" {
   name         = "az-ssh-key"
   key_vault_id = data.azurerm_key_vault.kv.id
@@ -21,8 +21,8 @@ data "azurerm_key_vault_secret" "ssh_keys" {
 ####################################################################
 resource "azurerm_linux_virtual_machine" "az-indexer_1" {
   name                = "wazuh-indexer"
-  resource_group_name = azurerm_resource_group.az-wazuh-grp.name
-  location            = azurerm_resource_group.az-wazuh-grp.location
+  resource_group_name = azurerm_resource_group.az-wazuh-resources.name
+  location            = azurerm_resource_group.az-wazuh-resources.location
   size                = "Standard_B1s"
   admin_username      = "indexer"
   network_interface_ids = [
@@ -73,8 +73,8 @@ resource "azurerm_linux_virtual_machine" "az-indexer_1" {
 ####################################################################
 resource "azurerm_linux_virtual_machine" "az-server_1" {
   name                = "wazuh-server"
-  resource_group_name = azurerm_resource_group.az-wazuh-grp.name
-  location            = azurerm_resource_group.az-wazuh-grp.location
+  resource_group_name = azurerm_resource_group.az-wazuh-resources.name
+  location            = azurerm_resource_group.az-wazuh-resources.location
   size                = "Standard_B1s"
   admin_username      = "server" #CHANGEME
   network_interface_ids = [
@@ -126,8 +126,8 @@ resource "azurerm_linux_virtual_machine" "az-server_1" {
 ####################################################################
 resource "azurerm_linux_virtual_machine" "az-dashboard_1" {
   name                = "wazuh-dashboard"
-  resource_group_name = azurerm_resource_group.az-wazuh-grp.name
-  location            = azurerm_resource_group.az-wazuh-grp.location
+  resource_group_name = azurerm_resource_group.az-wazuh-resources.name
+  location            = azurerm_resource_group.az-wazuh-resources.location
   size                = "Standard_B1s"
   admin_username      = "dash"
   network_interface_ids = [

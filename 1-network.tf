@@ -9,8 +9,8 @@
 
 resource "azurerm_virtual_network" "az-wazuh-vn" {
   name                = "az-wazuh-network"
-  resource_group_name = azurerm_resource_group.az-wazuh-grp.name
-  location            = azurerm_resource_group.az-wazuh-grp.location
+  resource_group_name = azurerm_resource_group.az-wazuh-resources.name
+  location            = azurerm_resource_group.az-wazuh-resources.location
   address_space       = ["10.123.0.0/16"]
 
   tags = {
@@ -20,15 +20,15 @@ resource "azurerm_virtual_network" "az-wazuh-vn" {
 
 resource "azurerm_subnet" "az-subnet" {
   name                 = "az-subnet-1"
-  resource_group_name  = azurerm_resource_group.az-wazuh-grp.name
+  resource_group_name  = azurerm_resource_group.az-wazuh-resources.name
   virtual_network_name = azurerm_virtual_network.az-wazuh-vn.name
   address_prefixes     = ["10.123.1.0/24"]
 }
 
 resource "azurerm_public_ip" "az-pub-ip" {
   name                = "az-pub-ip"
-  resource_group_name = azurerm_resource_group.az-wazuh-grp.name
-  location            = azurerm_resource_group.az-wazuh-grp.location
+  resource_group_name = azurerm_resource_group.az-wazuh-resources.name
+  location            = azurerm_resource_group.az-wazuh-resources.location
   allocation_method   = "Dynamic"
 
   tags = {
@@ -38,8 +38,8 @@ resource "azurerm_public_ip" "az-pub-ip" {
 
 resource "azurerm_network_interface" "az-wazuh-nic" {
   name                = "az-wazuh-nic"
-  location            = azurerm_resource_group.az-wazuh-grp.location
-  resource_group_name = azurerm_resource_group.az-wazuh-grp.name
+  location            = azurerm_resource_group.az-wazuh-resources.location
+  resource_group_name = azurerm_resource_group.az-wazuh-resources.name
 
   ip_configuration {
     name                          = "internal"
